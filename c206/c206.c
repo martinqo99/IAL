@@ -193,9 +193,15 @@ void DLCopyFirst (tDLList *L, int *val)	{
 ** Pokud je seznam L prázdný, volá funkci DLError().
 **/
 
+	if(!L)
+		return;
 	
+	if(!L->First){
+		DLError();
+		return;
+	}
 	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	*val = L->First->data;	
 }
 
 void DLCopyLast (tDLList *L, int *val)	{
@@ -204,8 +210,15 @@ void DLCopyLast (tDLList *L, int *val)	{
 ** Pokud je seznam L prázdný, volá funkci DLError().
 **/
 	
+	if(!L)
+		return;
 	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	if(!L->First){
+		DLError();
+		return;
+	}
+	
+	*val = L->Last->data;	
 }
 
 void DLDeleteFirst (tDLList *L)	{
