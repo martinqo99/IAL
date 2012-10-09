@@ -365,7 +365,7 @@ void DLPreInsert (tDLList *L, int val)		{
 
     if(!L || !L->Act)
 		return;
-    
+		
     tDLElemPtr item = malloc(sizeof(struct tDLElem));
     
     if(!item){
@@ -380,13 +380,13 @@ void DLPreInsert (tDLList *L, int val)		{
 	//In the middle
 	if(L->Act->lptr){
 		item->lptr = L->Act->lptr;
-		L->Act->lptr->rptr = item;	
+		
+		L->Act->lptr->rptr = item;
 	}
-	//On the beginning
 	else
-		L->First = item;	
-	
-	L->Act->rptr = item;	
+		L->First = item;
+		
+	L->Act->lptr = item;
 }
 
 void DLCopy (tDLList *L, int *val)	{
@@ -455,4 +455,3 @@ int DLActive (tDLList *L) {
 }
 
 /* Konec c206.c*/
-
