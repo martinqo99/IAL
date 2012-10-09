@@ -112,7 +112,7 @@ int queueFull ( const tQueue* q ) {
 ** Funkci implementujte jako jedinı pøíkaz s vyu¾itím pomocné funkce nextIndex.
 */
 
-	return (nextIndex(q->b_index) == 0)? 1: 0;
+	return (nextIndex(q->b_index) == q->f_index)? 1: 0;
 }
 
 void queueFront ( const tQueue* q, char* c ) {
@@ -148,7 +148,6 @@ void queueRemove ( tQueue* q ) {
 	}
 
 	q->f_index = nextIndex(q->f_index);
-	q->b_index = nextIndex(q->b_index);
 }
 
 void queueGet ( tQueue* q, char* c) {
@@ -180,6 +179,13 @@ void queueUp ( tQueue* q, char c ) {
 ** Pøi implementaci vyu¾ijte døíve definovanıch funkcí queueFull a nextIndex.
 */
 
-	  solved = FALSE;                  /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	if(queueFull(q)){
+		queueError(QERR_UP);
+		return;
+	}
+	
+	q->arr[q->b_index] = c;
+	
+	q->b_index = nextIndex(q->b_index);
 }
 /* Konec pøíkladu c203.c */
