@@ -128,8 +128,11 @@ void DLInsertFirst (tDLList *L, int val)	{
 	item->lptr = NULL;
 	item->rptr = L->First;
 	
+	//If nonempty
 	if(L->First)
-		L->First->lptr = item;		
+		L->First->lptr = item;	
+	else
+		L->Last = item;
 	
 	L->First = item;	
 }
@@ -140,9 +143,28 @@ void DLInsertLast(tDLList *L, int val)	{
 ** V pøípadì, ¾e není dostatek pamìti pro nový prvek pøi operaci malloc,
 ** volá funkci DLError().
 **/ 	
+
+    if(!L)
+		return;
+    
+    tDLElemPtr item = malloc(sizeof(struct tDLElem));
+    
+    if(!item){
+		DLError();
+		return;
+	}
 	
+	item->data = val;
+	item->lptr = L->Last;
+	item->rptr = NULL;
 	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	//If empty
+	if(!L->First)
+		L->First = item;
+	else
+		L->Last->rptr = item;
+	
+	L->Last = item;	
 }
 
 void DLFirst (tDLList *L)	{
