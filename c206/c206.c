@@ -75,9 +75,13 @@ void DLInitList (tDLList *L)	{
 ** seznamem, a proto tuto mo¾nost neo¹etøujte. V¾dy pøedpokládejte,
 ** ¾e neinicializované promìnné mají nedefinovanou hodnotu.
 **/
-    
-	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+
+ 	if(!L)
+		return;
+			
+	L->First = NULL;
+	L->Act = NULL;
+	L->Last = NULL;   
 }
 
 void DLDisposeList (tDLList *L)	{
@@ -86,9 +90,21 @@ void DLDisposeList (tDLList *L)	{
 ** se nacházel po inicializaci. Ru¹ené prvky seznamu budou korektnì
 ** uvolnìny voláním operace free. 
 **/
+
+	if(!L)
+		return;
 	
+	tDLElemPtr iterator;
 	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	while((iterator = L->First)){
+		L->First = iterator->rptr;
+		
+		free(iterator);
+	}
+		
+	L->First = NULL;
+	L->Act = NULL;
+	L->Last = NULL;
 }
 
 void DLInsertFirst (tDLList *L, int val)	{
