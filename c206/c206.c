@@ -248,9 +248,24 @@ void DLDeleteLast (tDLList *L)	{
 ** Zru¹í poslední prvek seznamu L. Pokud byl poslední prvek aktivní,
 ** aktivita seznamu se ztrácí. Pokud byl seznam L prázdný, nic se nedìje.
 **/ 
+
+	if(!L || !L->First)
+		return;
+		
+	if(L->Last == L->Act)
+		L->Act = NULL;
+		
+	tDLElemPtr iterator = L->Last;		
+
+	L->Last = L->Last->lptr;
 	
+	free(iterator);
 	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	//If Empty
+	if(!L->Last)
+		L->First = NULL;
+	else
+		L->Last->rptr = NULL;
 }
 
 void DLPostDelete (tDLList *L)	{
@@ -259,9 +274,24 @@ void DLPostDelete (tDLList *L)	{
 ** Pokud je seznam L neaktivní nebo pokud je aktivní prvek
 ** posledním prvkem seznamu, nic se nedìje.
 **/
-	
+
+	if(!L || !L->Act || L->Act == L->Last)
+		return;
 		
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	tDLElemPtr iterator = L->Act->rptr;
+	
+	//In the middle
+	if(iterator->rptr){
+		L->Act->rptr = iterator->rptr;
+		iterator->rptr->lptr = L->Act;		
+	}
+	//On the end
+	else{
+		L->Act->rptr = NULL;
+		L->Last = L->Act;
+	}
+	
+	free(iterator);
 }
 
 void DLPreDelete (tDLList *L)	{
