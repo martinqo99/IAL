@@ -3,7 +3,7 @@ PRJ=c206
 #
 PROGS=$(PRJ)-test
 CC=gcc
-CFLAGS=-Wall -std=c99 -pedantic -lm
+CFLAGS=-Wall -g -std=c99 -pedantic -lm
 
 all: $(PROGS)
 
