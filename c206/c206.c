@@ -316,8 +316,10 @@ void DLActualize (tDLList *L, int val) {
 ** Pokud seznam L není aktivní, nedìlá nic.
 **/
 	
-	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	if(!L || !L->Act)
+		return;
+		
+	L->Act->data = val;
 }
 
 void DLSucc (tDLList *L)	{
@@ -326,9 +328,11 @@ void DLSucc (tDLList *L)	{
 ** Není-li seznam aktivní, nedìlá nic.
 ** V¹imnìte si, ¾e pøi aktivitì na posledním prvku se seznam stane neaktivním.
 **/
-	
-	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+
+	if(!L || !L->Act)
+		return;
+		
+	L->Act = L->Act->rptr;
 }
 
 
@@ -339,8 +343,10 @@ void DLPred (tDLList *L)	{
 ** V¹imnìte si, ¾e pøi aktivitì na prvním prvku se seznam stane neaktivním.
 **/
 	
-	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	if(!L || !L->Act)
+		return;
+		
+	L->Act = L->Act->lptr;
 }
 
 int DLActive (tDLList *L) {		
