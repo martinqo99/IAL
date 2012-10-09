@@ -112,7 +112,7 @@ int queueFull ( const tQueue* q ) {
 ** Funkci implementujte jako jediný pøíkaz s vyu¾itím pomocné funkce nextIndex.
 */
 
-	  solved = FALSE;                  /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	return (nextIndex(q->b_index) == 0)? 1: 0;
 }
 
 void queueFront ( const tQueue* q, char* c ) {
@@ -127,7 +127,12 @@ void queueFront ( const tQueue* q, char* c ) {
 ** Pøi implementaci vyu¾ijte døíve definované funkce queueEmpty.
 */
 
-	  solved = FALSE;                  /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	if(queueEmpty(q)){
+		queueError(QERR_FRONT);
+		return;
+	}
+	
+	*c = q->arr[q->f_index];
 }
 
 void queueRemove ( tQueue* q ) {
@@ -137,8 +142,13 @@ void queueRemove ( tQueue* q ) {
 ** Hodnotu na uvolnìné pozici ve frontì nijak neo¹etøujte (nepøepisujte).
 ** Pøi implementaci vyu¾ijte døíve definované funkce queueEmpty a nextIndex.
 */
+	if(queueEmpty(q)){
+		queueError(QERR_REMOVE);
+		return;
+	}
 
-	  solved = FALSE;                  /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	q->f_index = nextIndex(q->f_index);
+	q->b_index = nextIndex(q->b_index);
 }
 
 void queueGet ( tQueue* q, char* c) {
@@ -150,7 +160,13 @@ void queueGet ( tQueue* q, char* c) {
 ** queueFront a queueRemove.
 */
 
-	  solved = FALSE;                  /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	if(queueEmpty(q)){
+		queueError(QERR_GET);
+		return;
+	}
+	
+	queueFront(q, c);
+	queueRemove(q);
 }
 
 void queueUp ( tQueue* q, char c ) {
