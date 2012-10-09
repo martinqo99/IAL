@@ -238,6 +238,7 @@ void DLDeleteFirst (tDLList *L)	{
 	free(L->First);
 	
 	L->First = iterator;
+	L->First->lptr = NULL;
 	
 	if(!iterator->rptr)
 		L->Last = L->First;
@@ -250,7 +251,7 @@ void DLDeleteLast (tDLList *L)	{
 **/ 
 
 	if(!L || !L->First)
-		return;
+		return;		
 		
 	if(L->Last == L->Act)
 		L->Act = NULL;
@@ -300,9 +301,24 @@ void DLPreDelete (tDLList *L)	{
 ** Pokud je seznam L neaktivní nebo pokud je aktivní prvek
 ** prvním prvkem seznamu, nic se nedìje.
 **/
+
+	if(!L || !L->Act || L->Act == L->First)
+		return;
+		
+	tDLElemPtr iterator = L->Act->lptr;
 	
-			
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	//In the middle
+	if(iterator->lptr){
+		L->Act->lptr = iterator->lptr;
+		iterator->lptr->rptr = L->Act;		
+	}
+	//On the beginning
+	else{
+		L->Act->lptr = NULL;
+		L->First = L->Act;
+	}
+	
+	free(iterator);
 }
 
 void DLPostInsert (tDLList *L, int val) {
@@ -395,3 +411,4 @@ int DLActive (tDLList *L) {
 }
 
 /* Konec c206.c*/
+
