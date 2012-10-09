@@ -354,9 +354,8 @@ int DLActive (tDLList *L) {
 ** Je-li seznam aktivní, vrací true. V opaèném pøípadì vrací false.
 ** Funkci implementujte jako jediný pøíkaz.
 **/
-	
-	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+
+		return (L->Act)? TRUE : FALSE;
 }
 
 /* Konec c206.c*/
