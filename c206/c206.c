@@ -173,9 +173,8 @@ void DLFirst (tDLList *L)	{
 ** Funkci implementujte jako jediný pøíkaz (nepoèítáme-li return),
 ** ani¾ byste testovali, zda je seznam L prázdný.
 **/
-	
 
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	L->Act = L->First;
 }
 
 void DLLast (tDLList *L)	{
@@ -185,8 +184,7 @@ void DLLast (tDLList *L)	{
 ** ani¾ byste testovali, zda je seznam L prázdný.
 **/
 	
-	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	L->Act = L->Last;
 }
 
 void DLCopyFirst (tDLList *L, int *val)	{
