@@ -94,9 +94,7 @@ int nextIndex ( int index ) {
 ** Funkci implementujte jako jediný prikaz vyu¾ívající operace '%'.
 ** Funkci nextIndex budete vyu¾ívat v dal¹ích implementovaných funkcích.
 */
-
-	  solved = FALSE;                  /* V pøípadì øe¹ení, sma¾te tento øádek! */
-
+	return (index + 1) % QUEUE_SIZE;
 }
 
 int queueEmpty ( const tQueue* q ) {
@@ -105,7 +103,7 @@ int queueEmpty ( const tQueue* q ) {
 ** Funkci implementujte jako jediný pøíkaz.
 */
 
-	  solved = FALSE;                  /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	return (q->f_index == q->b_index)? 1 : 0;
 }
 
 int queueFull ( const tQueue* q ) {
