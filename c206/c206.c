@@ -328,9 +328,31 @@ void DLPostInsert (tDLList *L, int val) {
 ** V pøípadì, ¾e není dostatek pamìti pro nový prvek pøi operaci malloc,
 ** volá funkci DLError().
 **/
+
+    if(!L || !L->Act)
+		return;
+    
+    tDLElemPtr item = malloc(sizeof(struct tDLElem));
+    
+    if(!item){
+		DLError();
+		return;
+	}
 	
+	item->data = val;
+	item->lptr = L->Act;
+	item->rptr = NULL;
 	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	//In the middle
+	if(L->Act->rptr){
+		item->rptr = L->Act->rptr;
+		L->Act->rptr->lptr = item;	
+	}
+	//On the end
+	else
+		L->Last = item;	
+	
+	L->Act->rptr = item;	
 }
 
 void DLPreInsert (tDLList *L, int val)		{
@@ -340,9 +362,31 @@ void DLPreInsert (tDLList *L, int val)		{
 ** V pøípadì, ¾e není dostatek pamìti pro nový prvek pøi operaci malloc,
 ** volá funkci DLError().
 **/
+
+    if(!L || !L->Act)
+		return;
+    
+    tDLElemPtr item = malloc(sizeof(struct tDLElem));
+    
+    if(!item){
+		DLError();
+		return;
+	}
 	
+	item->data = val;
+	item->lptr = NULL;
+	item->rptr = L->Act;
 	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	//In the middle
+	if(L->Act->lptr){
+		item->lptr = L->Act->lptr;
+		L->Act->lptr->rptr = item;	
+	}
+	//On the beginning
+	else
+		L->First = item;	
+	
+	L->Act->rptr = item;	
 }
 
 void DLCopy (tDLList *L, int *val)	{
