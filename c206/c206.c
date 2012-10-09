@@ -305,9 +305,15 @@ void DLCopy (tDLList *L, int *val)	{
 ** Pokud seznam L není aktivní, volá funkci DLError ().
 **/
 		
+	if(!L)
+		return;
 	
+	if(!L->Act){
+		DLError();
+		return;
+	}
 	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	*val = L->Act->data;	
 }
 
 void DLActualize (tDLList *L, int val) {
