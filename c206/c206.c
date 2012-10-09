@@ -226,9 +226,21 @@ void DLDeleteFirst (tDLList *L)	{
 ** Zru¹í první prvek seznamu L. Pokud byl první prvek aktivní, aktivita 
 ** se ztrácí. Pokud byl seznam L prázdný, nic se nedìje.
 **/
+
+	if(!L || !L->First)
+		return;
 	
+	tDLElemPtr iterator = L->First->rptr;
 	
- solved = FALSE;                   /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	if(L->First == L->Act)
+		L->Act = NULL;
+	
+	free(L->First);
+	
+	L->First = iterator;
+	
+	if(!iterator->rptr)
+		L->Last = L->First;
 }	
 
 void DLDeleteLast (tDLList *L)	{
