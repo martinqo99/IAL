@@ -75,8 +75,17 @@ void queueInit ( tQueue* q ) {
 ** V pøípadì, ¾e funkce dostane jako parametr q == NULL, volejte funkci
 ** queueError(QERR_INIT).
 */
+	if(!q){
+		queueError(QERR_INIT);
+		return;
+	}
+	
+	int i;
+	for(i = 0; i < QUEUE_SIZE; i++)
+		q->arr[i] = '*';
 
-	  solved = FALSE;                  /* V pøípadì øe¹ení, sma¾te tento øádek! */
+	q->f_index = 0;
+	q->b_index = 0;
 }
 
 int nextIndex ( int index ) {
